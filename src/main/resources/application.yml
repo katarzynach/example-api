@@ -1,0 +1,16 @@
+server:
+  port: ${port:8080}
+
+spring:
+  application:
+    name: Home API
+  datasource:
+    url: ${db_url}
+    driverClassName: ${db_driver}
+    username: ${db_user}
+    password: ${db_pass}
+  h2:
+    console.enabled: true
+  jpa:
+    defer-datasource-initialization: true
+
