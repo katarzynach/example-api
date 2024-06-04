@@ -22,8 +22,8 @@ This project demonstrates the capabilities of the Spring Boot framework, utilize
 ### Installation
 1. Clone the repository
 ```
-git clone https://github.com/your-username/your-repository.git
-   cd your-repository
+git clone https://github.com/katarzynach/example-api.git
+   cd example-api
 ```
 2. Build the project
 ```
