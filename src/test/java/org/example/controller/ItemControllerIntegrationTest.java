@@ -1,8 +1,8 @@
 package org.example.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.dto.MedicineDTO;
-import org.example.dto.MedicineResponseDTO;
+import org.example.dto.ItemDTO;
+import org.example.dto.ItemResponseDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class MedicineControllerIntegrationTest {
+class ItemControllerIntegrationTest {
 
 
     @Autowired
@@ -31,52 +31,52 @@ class MedicineControllerIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("Add new medicine when valid request body")
-    void addMedicineSuccess() throws Exception {
-        MedicineDTO medicineDTO = MedicineDTO.builder()
+    @DisplayName("Add new item when valid request body")
+    void addItemSuccess() throws Exception {
+        ItemDTO itemDTO = ItemDTO.builder()
                 .name("test").manufacturer("testM").amount(22.5).unit("ml").expirationDate(LocalDate.now()).build();
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/medicine/add")
-                        .content(objectMapper.writeValueAsString(medicineDTO))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/item/add")
+                        .content(objectMapper.writeValueAsString(itemDTO))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        MedicineResponseDTO created = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), MedicineResponseDTO.class);
+        ItemResponseDTO created = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ItemResponseDTO.class);
 
         assertNotNull(created.getId());
-        assertEquals(medicineDTO.getName(), created.getName());
+        assertEquals(itemDTO.getName(), created.getName());
     }
 
     @Test
-    @DisplayName("Add new medicine when invalid request body")
-    void addMedicineShouldFail() throws Exception {
-        MedicineDTO medicineDTO = MedicineDTO.builder()
+    @DisplayName("Add new item when invalid request body")
+    void addItemShouldFail() throws Exception {
+        ItemDTO itemDTO = ItemDTO.builder()
                 .manufacturer("testM").amount(22.5).unit("ml").expirationDate(LocalDate.now()).build();
-        mockMvc.perform(MockMvcRequestBuilders.post("/medicine/add")
-                        .content(objectMapper.writeValueAsString(medicineDTO))
+        mockMvc.perform(MockMvcRequestBuilders.post("/item/add")
+                        .content(objectMapper.writeValueAsString(itemDTO))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    @DisplayName("Get medicine by ID")
-    void getMedicine() throws Exception {
+    @DisplayName("Get item by ID")
+    void getItem() throws Exception {
         Integer id = 1;
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/medicine/" + id)
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/item/" + id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
-        MedicineResponseDTO returned = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), MedicineResponseDTO.class);
+        ItemResponseDTO returned = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ItemResponseDTO.class);
         assertNotNull(returned.getId());
         assertEquals((id), returned.getId());
 
     }
 
     @Test
-    @DisplayName("Get medicine when ID Not Found")
-    void getMedicineNotFound() throws Exception {
+    @DisplayName("Get item when ID Not Found")
+    void getItemNotFound() throws Exception {
         Integer id = Integer.MAX_VALUE;
-        mockMvc.perform(MockMvcRequestBuilders.get("/medicine/" + id)
+        mockMvc.perform(MockMvcRequestBuilders.get("/item/" + id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
     }

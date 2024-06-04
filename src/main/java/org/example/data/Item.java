@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Medicine {
+public class Item {
 
     @Id
     @Column(name = "ID")

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: Medicine API
+    name: Home API
   datasource:
     url: ${db_url}
     driverClassName: ${db_driver}

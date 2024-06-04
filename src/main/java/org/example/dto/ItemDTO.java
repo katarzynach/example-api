@@ -1,26 +1,26 @@
 package org.example.dto;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.time.LocalDate;
 
-@Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class MedicineResponseDTO implements Serializable {
-
-    private Integer id;
+@Data
+public class ItemDTO implements Serializable {
+//todo validation add messages
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String manufacturer;
+    @NotNull
     private Double amount;
+    @NotEmpty
     private String unit;
+    @NotNull
     private LocalDate expirationDate;
     private String additionalInfo;
-    private Instant creationDate;
 }
