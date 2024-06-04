@@ -1,4 +1,4 @@
-# example-api
+# Home-api
 
 ## Overview
 Home API is a management system for home goods, which have an expiration date. 
